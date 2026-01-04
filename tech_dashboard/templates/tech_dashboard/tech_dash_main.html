@@ -7,69 +7,16 @@
     <link rel="stylesheet" href="{% static 'tech_dashboard/css/tech_dash_main.css' %}">
 </head>
     <body>
-        <ul class="belt_prog_wrapper">
-            {% for belt, uvs in tree.items %}
-            <li class="node belt">
-                <div class="node-header">
-                    <button class="toggle">
-                        <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
-                    </button>
-                    <span class="label">{{ belt }}</span>
-                </div>
-                <ul class="children">
-                    {% for uv, categories in uvs.items %}
-                    <li class="node uv">
-                        <div class="node-header">
-                            <button class="toggle">
-                                <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
-                            </button>
-                            <span class="label">{{ uv }}</span>
-                        </div>
-                        <ul class="children">
-                            {% for category, subcats in categories.items %}
-                            <li class="node category">
-                                <div class="node-header">
-                                    <button class="toggle">
-                                        <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
-                                    </button>
-                                    <span class="label">{{ category }}</span>
-                                </div>
-                                <ul class="children">
-                                    {% for subcat, techniques in subcats.items %}
-                                    <li class="node sub-category">
-                                        <div class="node-header">
-                                            <button class="toggle">
-                                                <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
-                                            </button>
-                                            <span class="label">{{ subcat }}</span>
-                                        </div>
-                                        <ul class="children">
-                                            {% for technique in techniques %}
-                                            <li class="leaf technique">
-                                                {{ technique.technique }}
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endfor %}
-        </ul>
-
         <table class="nested-table">
             <thead>
                 <tr>
                     <th>Technique</th>
-                    <th>Viewed</th>
-                    <th>Last viewed</th>
-                    <th>Actions</th>
+                    <th>Position</th>
+                    <th>Date vue</th>
+                    <th>Date de révision</th>
+                    <th>Note</th>
+                    <th>Page livre</th>
+                    <th>Réf Programme</th>
                 </tr>
             </thead>
 
@@ -122,18 +69,28 @@
                                 <!-- TECHNIQUE (LEAF) -->
                                 <tr class="leaf level-4 hidden"
                                     data-parent="sub-{{ forloop.parentloop.counter }}">
-                                    <td>
-                                        {{ technique.technique }}
-                                    </td>
-                                    <td>
+                                    <td id="tech_name">
                                         <input type="checkbox"
                                             {% if technique.viewed_technique %}checked{% endif %}>
+                                        {{ technique.technique }}
+                                    </td>
+                                    <td id="tech_pos">
+                                        {{ technique.position }}
                                     </td>
                                     <td>
-                                        {{ technique.last_viewed|default:"—" }}
+                                        {{ technique.viewed_date }}
                                     </td>
                                     <td>
-                                        ⋯
+                                        {{ technique.revision_date }}
+                                    </td>
+                                    <td id="tech_note">
+                                        {{ technique.note }}
+                                    </td>
+                                    <td>
+                                        {{ technique.official_book_ref_page }}
+                                    </td>
+                                    <td>
+                                        {{ technique.official_prog_ref_2025 }}
                                     </td>
                                 </tr>
                                 {% endfor %}
