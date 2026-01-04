@@ -1,0 +1,99 @@
+/* Reset css by default */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+tr.hidden { display: none; }
+
+/* Technique Dashboard */
+/*
+.belt_prog_wrapper,
+.belt_prog_wrapper ul {
+  list-style: none;
+  margin: 0;
+}
+
+.belt_prog_wrapper {
+  padding-left: 0;
+  background-color: #FFFEB5;
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom : 1px solid lightgrey;
+}
+
+.children {
+  display: none;
+  padding-left: 20px;
+}
+
+.node.open > .children {
+  display: block;
+}
+
+.toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon {
+  width: 14px;
+  transition: transform 0.2s ease;
+}
+
+.node.open > .node-header .icon {
+  transform: rotate(90deg);
+}
+
+.leaf {
+  padding: 6px 12px 6px 32px;
+}
+
+.technique {
+  border-bottom : 1px solid lightgrey;
+}*/
+
+/* TABLE */
+.nested-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.nested-table th,
+.nested-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.level-0 td { padding-left: 12px; }
+.level-1 td { padding-left: 32px; }
+.level-2 td { padding-left: 52px; }
+.level-3 td { padding-left: 72px; }
+.level-4 td { padding-left: 92px; }
+
+.toggle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+.leaf .toggle {
+    visibility: hidden;
+}

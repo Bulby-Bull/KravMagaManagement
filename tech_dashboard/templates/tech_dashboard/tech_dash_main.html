@@ -1,10 +1,149 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Techniques</title>
+    <link rel="stylesheet" href="{% static 'tech_dashboard/css/tech_dash_main.css' %}">
 </head>
     <body>
+        <ul class="belt_prog_wrapper">
+            {% for belt, uvs in tree.items %}
+            <li class="node belt">
+                <div class="node-header">
+                    <button class="toggle">
+                        <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
+                    </button>
+                    <span class="label">{{ belt }}</span>
+                </div>
+                <ul class="children">
+                    {% for uv, categories in uvs.items %}
+                    <li class="node uv">
+                        <div class="node-header">
+                            <button class="toggle">
+                                <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
+                            </button>
+                            <span class="label">{{ uv }}</span>
+                        </div>
+                        <ul class="children">
+                            {% for category, subcats in categories.items %}
+                            <li class="node category">
+                                <div class="node-header">
+                                    <button class="toggle">
+                                        <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
+                                    </button>
+                                    <span class="label">{{ category }}</span>
+                                </div>
+                                <ul class="children">
+                                    {% for subcat, techniques in subcats.items %}
+                                    <li class="node sub-category">
+                                        <div class="node-header">
+                                            <button class="toggle">
+                                                <img src="{% static 'icons/right_arrow.svg' %}" class="icon" alt="">
+                                            </button>
+                                            <span class="label">{{ subcat }}</span>
+                                        </div>
+                                        <ul class="children">
+                                            {% for technique in techniques %}
+                                            <li class="leaf technique">
+                                                {{ technique.technique }}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
 
+        <table class="nested-table">
+            <thead>
+                <tr>
+                    <th>Technique</th>
+                    <th>Viewed</th>
+                    <th>Last viewed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for belt, uvs in tree.items %}
+                <!-- BELT -->
+                <tr class="node level-0" data-id="belt-{{ forloop.counter }}">
+                    <td>
+                        <button class="toggle">▶</button>
+                        <strong>{{ belt }}</strong>
+                    </td>
+                    <td colspan="3"></td>
+                </tr>
+
+                    {% for uv, categories in uvs.items %}
+                    <!-- UV -->
+                    <tr class="node level-1 hidden" data-parent="belt-{{ forloop.parentloop.counter }}" data-id="uv-{{ forloop.counter }}">
+                        <td>
+                            <button class="toggle">▶</button>
+                            {{ uv }}
+                        </td>
+                        <td colspan="3"></td>
+                    </tr>
+
+                        {% for category, subcats in categories.items %}
+                        <!-- CATEGORY -->
+                        <tr class="node level-2 hidden"
+                            data-parent="uv-{{ forloop.parentloop.counter }}"
+                            data-id="cat-{{ forloop.counter }}">
+                            <td>
+                                <button class="toggle">▶</button>
+                                {{ category }}
+                            </td>
+                            <td colspan="3"></td>
+                        </tr>
+
+                            {% for subcat, techniques in subcats.items %}
+                            <!-- SUBCATEGORY -->
+                            <tr class="node level-3 hidden"
+                                data-parent="cat-{{ forloop.parentloop.counter }}"
+                                data-id="sub-{{ forloop.counter }}">
+                                <td>
+                                    <button class="toggle">▶</button>
+                                    {{ subcat }}
+                                </td>
+                                <td colspan="3"></td>
+                            </tr>
+
+                                {% for technique in techniques %}
+                                <!-- TECHNIQUE (LEAF) -->
+                                <tr class="leaf level-4 hidden"
+                                    data-parent="sub-{{ forloop.parentloop.counter }}">
+                                    <td>
+                                        {{ technique.technique }}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox"
+                                            {% if technique.viewed_technique %}checked{% endif %}>
+                                    </td>
+                                    <td>
+                                        {{ technique.last_viewed|default:"—" }}
+                                    </td>
+                                    <td>
+                                        ⋯
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <script src="{% static 'tech_dashboard/js/tech_dash_main.js' %}"></script>
     </body>
 </html>
