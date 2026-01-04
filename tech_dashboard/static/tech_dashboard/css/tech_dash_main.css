@@ -5,64 +5,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  font-family: 'Roboto', serif;
 }
 
 tr.hidden { display: none; }
 
+tr.node {
+    cursor: pointer;
+}
+
 /* Technique Dashboard */
-/*
-.belt_prog_wrapper,
-.belt_prog_wrapper ul {
-  list-style: none;
-  margin: 0;
-}
-
-.belt_prog_wrapper {
-  padding-left: 0;
-  background-color: #FFFEB5;
-}
-
-.node-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-bottom : 1px solid lightgrey;
-}
-
-.children {
-  display: none;
-  padding-left: 20px;
-}
-
-.node.open > .children {
-  display: block;
-}
-
-.toggle {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.icon {
-  width: 14px;
-  transition: transform 0.2s ease;
-}
-
-.node.open > .node-header .icon {
-  transform: rotate(90deg);
-}
-
-.leaf {
-  padding: 6px 12px 6px 32px;
-}
-
-.technique {
-  border-bottom : 1px solid lightgrey;
-}*/
 
 /* TABLE */
 .nested-table {
@@ -104,12 +57,16 @@ tr.hidden { display: none; }
     padding-left: 92px;
 }
 
-#tech_name{
-    width: 600px;
+.tech_name{
+    min-width: 600px;
 }
 
-#tech_note{
-    width: 300px;
+.tech_name div{
+    display: flex;
+}
+
+.tech_note{
+    min-width: 300px;
 }
 
 .toggle {
@@ -125,4 +82,9 @@ tr.hidden { display: none; }
 
 .leaf .toggle {
     visibility: hidden;
+}
+
+#viewed_tech_checkbox{
+    margin-left: -20px;
+    margin-right: 20px;
 }

@@ -5,25 +5,26 @@
     <meta charset="UTF-8">
     <title>Techniques</title>
     <link rel="stylesheet" href="{% static 'tech_dashboard/css/tech_dash_main.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
     <body>
         <table class="nested-table">
             <thead>
                 <tr>
-                    <th>Technique</th>
+                    <th class="tech_name">Technique</th>
                     <th>Position</th>
                     <th>Date vue</th>
                     <th>Date de révision</th>
-                    <th>Note</th>
+                    <th class="tech_note">Note</th>
                     <th>Page livre</th>
-                    <th>Réf Programme</th>
+                    <th>Réf programme</th>
                 </tr>
             </thead>
 
             <tbody>
                 {% for belt, uvs in tree.items %}
                 <!-- BELT -->
-                <tr class="node level-0 belt belt-{{ belt|slugify }}" data-id="belt-{{ forloop.counter }}">
+                <tr class="node level-0 belt-{{ belt|slugify }}" data-id="belt-{{ belt|slugify }}">
                     <td>
                         <button class="toggle">▶</button>
                         <strong>{{ belt }}</strong>
@@ -33,7 +34,7 @@
 
                     {% for uv, categories in uvs.items %}
                     <!-- UV -->
-                    <tr class="node level-1 hidden" data-parent="belt-{{ forloop.parentloop.counter }}" data-id="uv-{{ forloop.counter }}">
+                    <tr class="node level-1 hidden belt-{{ belt|slugify }}" data-parent="belt-{{ belt|slugify }}" data-id="uv-{{ belt|slugify }}-{{ uv|slugify }}">
                         <td>
                             <button class="toggle">▶</button>
                             {{ uv }}
@@ -43,9 +44,9 @@
 
                         {% for category, subcats in categories.items %}
                         <!-- CATEGORY -->
-                        <tr class="node level-2 hidden"
-                            data-parent="uv-{{ forloop.parentloop.counter }}"
-                            data-id="cat-{{ forloop.counter }}">
+                        <tr class="node level-2 hidden belt-{{ belt|slugify }}"
+                            data-parent="uv-{{ belt|slugify }}-{{ uv|slugify }}"
+                            data-id="cat-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}">
                             <td>
                                 <button class="toggle">▶</button>
                                 {{ category }}
@@ -55,9 +56,9 @@
 
                             {% for subcat, techniques in subcats.items %}
                             <!-- SUBCATEGORY -->
-                            <tr class="node level-3 hidden"
-                                data-parent="cat-{{ forloop.parentloop.counter }}"
-                                data-id="sub-{{ forloop.counter }}">
+                            <tr class="node level-3 hidden belt-{{ belt|slugify }}"
+                                data-parent="cat-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}"
+                                data-id="sub-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}-{{ subcat|slugify }}">
                                 <td>
                                     <button class="toggle">▶</button>
                                     {{ subcat }}
@@ -67,14 +68,16 @@
 
                                 {% for technique in techniques %}
                                 <!-- TECHNIQUE (LEAF) -->
-                                <tr class="leaf level-4 hidden"
-                                    data-parent="sub-{{ forloop.parentloop.counter }}">
-                                    <td id="tech_name">
-                                        <input type="checkbox"
+                                <tr class="leaf level-4 hidden belt-{{ belt|slugify }}"
+                                    data-parent="sub-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}-{{ subcat|slugify }}">
+                                    <td class="tech_name">
+                                        <div>
+                                            <input type="checkbox" id="viewed_tech_checkbox"
                                             {% if technique.viewed_technique %}checked{% endif %}>
-                                        {{ technique.technique }}
+                                            {{ technique.technique }}
+                                        </div>
                                     </td>
-                                    <td id="tech_pos">
+                                    <td class="tech_pos">
                                         {{ technique.position }}
                                     </td>
                                     <td>
@@ -83,7 +86,7 @@
                                     <td>
                                         {{ technique.revision_date }}
                                     </td>
-                                    <td id="tech_note">
+                                    <td class="tech_note">
                                         {{ technique.note }}
                                     </td>
                                     <td>
