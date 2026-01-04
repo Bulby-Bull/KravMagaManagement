@@ -72,14 +72,24 @@ tr.hidden { display: none; }
     border : 1px solid lightgrey;
 }
 
+.nested-table th{
+    padding: 10px;
+    text-align: center;
+}
+
 .nested-table td {
     padding: 10px;
     text-align: left;
 }
 
-.nested-table th{
-    padding: 10px;
-    text-align: center;
+/* Ceinture jaune */
+.belt-jaune td {
+    background-color: #fff9c4;
+}
+
+/* Optionnel : hover */
+.belt-jaune:hover td {
+    background-color: #fff59d;
 }
 
 .nested-table tr {

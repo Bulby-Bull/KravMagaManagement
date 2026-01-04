@@ -23,12 +23,12 @@
             <tbody>
                 {% for belt, uvs in tree.items %}
                 <!-- BELT -->
-                <tr class="node level-0" data-id="belt-{{ forloop.counter }}">
+                <tr class="node level-0 belt belt-{{ belt|slugify }}" data-id="belt-{{ forloop.counter }}">
                     <td>
                         <button class="toggle">▶</button>
                         <strong>{{ belt }}</strong>
                     </td>
-                    <td colspan="3"></td>
+                    <td colspan="6"></td>
                 </tr>
 
                     {% for uv, categories in uvs.items %}
@@ -38,7 +38,7 @@
                             <button class="toggle">▶</button>
                             {{ uv }}
                         </td>
-                        <td colspan="3"></td>
+                        <td colspan="6"></td>
                     </tr>
 
                         {% for category, subcats in categories.items %}
@@ -50,7 +50,7 @@
                                 <button class="toggle">▶</button>
                                 {{ category }}
                             </td>
-                            <td colspan="3"></td>
+                            <td colspan="6"></td>
                         </tr>
 
                             {% for subcat, techniques in subcats.items %}
@@ -62,7 +62,7 @@
                                     <button class="toggle">▶</button>
                                     {{ subcat }}
                                 </td>
-                                <td colspan="3"></td>
+                                <td colspan="6"></td>
                             </tr>
 
                                 {% for technique in techniques %}
