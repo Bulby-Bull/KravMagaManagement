@@ -29,7 +29,14 @@
                         <button class="toggle">▶</button>
                         <strong>{{ belt }}</strong>
                     </td>
-                    <td colspan="6"></td>
+                    <td colspan="6">
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar-label">Progression : </div>
+                            <div class="progress-bar-background">
+                                <div class="progress-bar-value" id="progress-bar-value" data-target="belt-{{ belt|slugify }}"></div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
 
                     {% for uv, categories in uvs.items %}
@@ -39,7 +46,14 @@
                             <button class="toggle">▶</button>
                             {{ uv }}
                         </td>
-                        <td colspan="6"></td>
+                        <td colspan="6">
+                            <div class="progress-bar-wrapper">
+                                <div class="progress-bar-label">Progression : </div>
+                                <div class="progress-bar-background">
+                                    <div class="progress-bar-value" data-scope="uv" data-target="uv-{{ belt|slugify }}-{{ uv|slugify }}"></div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
 
                         {% for category, subcats in categories.items %}
@@ -51,7 +65,14 @@
                                 <button class="toggle">▶</button>
                                 {{ category }}
                             </td>
-                            <td colspan="6"></td>
+                            <td colspan="6">
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-label">Progression : </div>
+                                    <div class="progress-bar-background">
+                                        <div class="progress-bar-value" data-scope="cat" data-target="cat-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}"></div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
 
                             {% for subcat, techniques in subcats.items %}
@@ -63,17 +84,26 @@
                                     <button class="toggle">▶</button>
                                     {{ subcat }}
                                 </td>
-                                <td colspan="6"></td>
+                                <td colspan="6">
+                                    <div class="progress-bar-wrapper">
+                                        <div class="progress-bar-label">Progression : </div>
+                                        <div class="progress-bar-background">
+                                            <div class="progress-bar-value" data-scope="sub" data-target="sub-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}-{{ subcat|slugify }}"></div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
 
                                 {% for technique in techniques %}
                                 <!-- TECHNIQUE (LEAF) -->
-                                <tr class="leaf level-4 hidden belt-{{ belt|slugify }}"
-                                    data-parent="sub-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}-{{ subcat|slugify }}">
+                                <tr class="leaf level-4 hidden belt-{{ belt|slugify }}
+                                    {% if technique.viewed_technique %}tech-viewed{% endif %}"
+                                    data-parent="sub-{{ belt|slugify }}-{{ uv|slugify }}-{{ category|slugify }}-{{ subcat|slugify }}"
+                                    data-path="belt-{{ belt|slugify }}|uv-{{ uv|slugify }}|cat-{{ category|slugify }}|sub-{{ subcat|slugify }}"
+                                >
                                     <td class="tech_name">
                                         <div>
-                                            <input type="checkbox" id="viewed_tech_checkbox"
-                                            {% if technique.viewed_technique %}checked{% endif %}>
+                                            <input type="checkbox" id="viewed_tech_checkbox">
                                             {{ technique.technique }}
                                         </div>
                                     </td>
