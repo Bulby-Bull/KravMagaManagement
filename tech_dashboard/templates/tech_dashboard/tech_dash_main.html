@@ -33,7 +33,7 @@
                         <div class="progress-bar-wrapper">
                             <div class="progress-bar-label">Progression : </div>
                             <div class="progress-bar-background">
-                                <div class="progress-bar-value" id="progress-bar-value" data-target="belt-{{ belt|slugify }}"></div>
+                                <div class="progress-bar-value" data-target="belt-{{ belt|slugify }}"></div>
                             </div>
                         </div>
                     </td>
@@ -50,7 +50,7 @@
                             <div class="progress-bar-wrapper">
                                 <div class="progress-bar-label">Progression : </div>
                                 <div class="progress-bar-background">
-                                    <div class="progress-bar-value" data-scope="uv" data-target="uv-{{ belt|slugify }}-{{ uv|slugify }}"></div>
+                                    <div class="progress-bar-value" data-target="uv-{{ belt|slugify }}-{{ uv|slugify }}"></div>
                                 </div>
                             </div>
                         </td>
@@ -110,7 +110,7 @@
                                     <td class="tech_pos">
                                         {{ technique.position }}
                                     </td>
-                                    <td>
+                                    <td data-role="viewed-date">
                                         {{ technique.viewed_date }}
                                     </td>
                                     <td>

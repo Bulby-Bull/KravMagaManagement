@@ -86,9 +86,23 @@ function updateAllProgressBars() {
 /* TODO Ajouter un date quand on check */
 document.querySelectorAll('tr.leaf input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', e => {
-        const row = e.target.closest('tr.leaf');
+        const checkbox = e.target;
+        const row = checkbox.closest('tr.leaf');
 
-        row.classList.toggle('tech-viewed', e.target.checked);
+        const dateTd = row.querySelector('[data-role="viewed-date"]');
+
+        row.classList.toggle('tech-viewed', checkbox.checked);
+
+        if (!dateTd) return;
+
+        if (checkbox.checked) {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('fr-FR');
+            dateTd.textContent = formattedDate;
+        } else {
+            dateTd.textContent = null;
+        }
+
         updateAllProgressBars();
     });
 });
